@@ -3,6 +3,7 @@ from .models import Campsite
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
+from .forms import CommentForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -30,7 +31,8 @@ def about(request):
 @login_required
 def index(request):
   campsites = Campsite.objects.all()
-  return render(request, 'campgo/index.html', { 'campsites': campsites })
+  comment_form = CommentForm
+  return render(request, 'campgo/index.html', { 'campsites': campsites, comment_form })
 
 class CampsiteCreate(LoginRequiredMixin, CreateView):
   model = Campsite
@@ -52,8 +54,6 @@ def camp_edit(request, campsite_id):
 def camp_delete(request):
   return render(request, 'campgo/confirm.html')
 
-
-
 @login_required
 def fav_list(request):
-  return render(request, 'campgo/main_app/favlist.html')
+  return render(request, 'campgo/favlist.html')
