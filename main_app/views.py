@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-# from .models import Campsite, Comment
+from .models import Campsite
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 # from .forms import FeedingForm
@@ -30,17 +30,27 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+@login_required
 def index(request):
-  return render(request, 'campgo/index.html')
+  campsites = Campsite.objects.all()
+  return render(request, 'campgo/index.html', { 'campsites': campsites })
 
+@login_required
 def camp_create(request):
   return render(request, 'campgo/new.html')
 
+@login_required
 def camp_edit(request):
   return render(request, 'campgo/edit.html')
 
+@login_required
 def camp_delete(request):
   return render(request, 'campgo/confirm.html')
 
+@login_required
 def camp_show(request):
   return render(request, 'campgo/show.html')
+
+@login_required
+def fav_list(request):
+  return render(request, 'campgo/main_app/favlist.html')

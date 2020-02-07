@@ -10,4 +10,5 @@ urlpatterns = [
   path('camp_edit/', views.camp_edit, name='camp_edit'),
   path('camp_delete/', views.camp_delete, name='camp_delete'),
   path('camp_show/<int:id>/', views.camp_show, name='camp_show'),
+  path('favlist/', views.fav_list, name="favlist")
 ]

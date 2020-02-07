@@ -24,9 +24,14 @@
       </div>
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
-          <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'favlist' %}">My Fav</a></li>
+            <li><a href="{% url 'camp_create' %}">Add New Campsite</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
