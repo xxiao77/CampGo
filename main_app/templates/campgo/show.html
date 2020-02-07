@@ -1,0 +1,10 @@
+{% extends 'base.html'%}
+
+{% block content%}
+
+<h1>Show campsite page</h1>
+<form action="{% url 'camp_edit'%} ">
+    <input type="submit" value="Edit Campsite">
+</form>
+
+{% endblock %}
