@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-# Byte-compiled / optimized / DLL files
-=======
 secret.py
 *.pyc
->>>>>>> master
 __pycache__/
 *.py[cod]
 *$py.class
@@ -132,7 +128,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-<<<<<<< HEAD
-secret.py
-=======
->>>>>>> master
