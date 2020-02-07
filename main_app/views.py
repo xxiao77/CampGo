@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .models import Campsite
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-# from .forms import FeedingForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -29,13 +28,9 @@ def home(request):
 
 def about(request):
   return render(request, 'about.html')
-
-<<<<<<< HEAD
-# camp_index ?
 def index(request):
   campsites = Campsite.objects.all()
   return render(request, 'campgo/index.html', { 'campsites': campsites })
-=======
 @login_required
 def index(request):
   return render(request, 'campgo/index.html')
@@ -51,4 +46,29 @@ def camp_delete(request):
 
 def camp_show(request):
   return render(request, 'campgo/show.html')
->>>>>>> master
+
+# comment views
+@login_required
+def assoc_comments(request, campsite_id, comment_id):
+  Campsite.objects.get(id=campsite_id).comments.add(comment_id)
+  return redirect('detail', campsite_id=campsite_id)
+
+@login_required
+def unassoc_comments(request, campsite_id, comment_id):
+  Campsite.objects.get(id=campsite_id).comments.remove(comment_id)
+  return redirect('detail', campsite_id=campsite_id)
+
+class CommentDetail(LoginRequiredMixin, DetailView):
+  model = Comment
+
+# class CommentCreate(LoginRequiredMixin, CreateView):
+#   model = Comment
+#   fields = '__all__'
+
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+  model = Comment
+  fields = []
+
+class CommentDelete(LoginRequiredMixin, DeleteView):
+  model = Comment
+  success_url = '/comments/'
