@@ -14,7 +14,7 @@
     <p>{{ campsite.description }}</p>
   </div>
   <div class="card-action">
-    <a href="#">Visit</a>
+    <a href="{% url 'camp_show' campsite.id %}">Visit</a>
   </div>
 </div>
 {% endfor %}

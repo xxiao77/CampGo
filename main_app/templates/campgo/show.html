@@ -2,9 +2,16 @@
 
 {% block content%}
 
-<h1>Show campsite page</h1>
-<form action="{% url 'camp_edit'%} ">
-    <input type="submit" value="Edit Campsite">
-</form>
+
+<div class="card" id="card">
+    <div class="card-content">
+      <span class="card-title">{{ campsite.name }}</span>
+      <p>Location: {{ campsite.location }}</p>
+      <p>Description: {{ campsite.description }}</p>
+    </div>
+    <div class="card-action">
+      <a href="{% url 'camp_edit' campsite.id %}">Edit Campsite</a>
+    </div>
+  </div>
 
 {% endblock %}
