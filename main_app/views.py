@@ -56,3 +56,31 @@ def camp_delete(request):
 def fav_list(request):
   favs = Campsite.objects.filter(user=request.user)
   return render(request, 'campgo/main_app/favlist.html', { 'favs': favs })
+def camp_show(request):
+  return render(request, 'campgo/show.html')
+
+# comment views
+@login_required
+def assoc_comments(request, campsite_id, comment_id):
+  Campsite.objects.get(id=campsite_id).comments.add(comment_id)
+  return redirect('detail', campsite_id=campsite_id)
+
+@login_required
+def unassoc_comments(request, campsite_id, comment_id):
+  Campsite.objects.get(id=campsite_id).comments.remove(comment_id)
+  return redirect('detail', campsite_id=campsite_id)
+
+class CommentDetail(LoginRequiredMixin, DetailView):
+  model = Comment
+
+# class CommentCreate(LoginRequiredMixin, CreateView):
+#   model = Comment
+#   fields = '__all__'
+
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+  model = Comment
+  fields = []
+
+class CommentDelete(LoginRequiredMixin, DeleteView):
+  model = Comment
+  success_url = '/comments/'
