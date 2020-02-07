@@ -8,10 +8,19 @@ class Campsite(models.Model):
   location = models.CharField(max_length=50)
   description = models.TextField()
   img_url = models.TextField()
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  # user = models.ForeignKey(User, on_delete=models.CASCADE)
+  users = models.ManyToManyField(User)
 
   def __str__(self):
     return self.name
 
   def get_absolute_url(self):
     return reverse('index')
+
+class Comment(models.Model):
+  content = models.TextField()
+  campsite = models.ForeignKey(Campsite, on_delete=models.CASCADE)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+  def __str__(self):
+    return self.name
