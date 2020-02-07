@@ -52,8 +52,7 @@ def camp_edit(request, campsite_id):
 def camp_delete(request):
   return render(request, 'campgo/confirm.html')
 
-
-
 @login_required
 def fav_list(request):
-  return render(request, 'campgo/main_app/favlist.html')
+  favs = Campsite.objects.filter(user=request.user)
+  return render(request, 'campgo/main_app/favlist.html', { 'favs': favs })
