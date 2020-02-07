@@ -1,4 +1,5 @@
-# Byte-compiled / optimized / DLL files
+secret.py
+*.pyc
 __pycache__/
 *.py[cod]
 *$py.class
@@ -126,6 +127,10 @@ venv.bak/
 dmypy.json
 
 # Pyre type checker
+<<<<<<< HEAD
 .pyre/
 
 secret.py
+=======
+.pyre/
+>>>>>>> master

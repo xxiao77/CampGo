@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Edit Campsite</h1>
+
+<form action="#">
+    <input type="text" value="Name of">
+    <input type="text" value="Description">
+    <input type="text" value="State Location">
+    <input type="text" value="Number of Sites">
+    <input type="submit" value="Update Campsite!">
+</form>
+<form action="{% url 'camp_delete' %}">
+    <input id="delete" type="submit" value="Delete Campsite">
+</form>
+
+{% endblock %}
