@@ -1,4 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h1>Index</h1>
+
+<h1>CampGo</h1>
+
+{% for campsite in campsites %}
+<div class="card">
+  <div class="card-image">
+    <img src="https://placekitten.com/20/30">
+    <span class="card-title">{{ campsite.name }}</span>
+  </div>
+  <div class="card-content">
+    <p>{{ campsite.location }}</p>
+    <p>{{ campsite.description }}</p>
+  </div>
+  <div class="card-action">
+    <a href="#">Visit</a>
+  </div>
+</div>
+{% endfor %}
+
 {% endblock %}

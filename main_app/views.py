@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-# from .models import Campsite, Comment
+from .models import Campsite
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 # from .forms import FeedingForm
@@ -34,5 +34,7 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+# camp_index ?
 def index(request):
-  return render(request, 'campgo/index.html')
+  campsites = Campsite.objects.all()
+  return render(request, 'campgo/index.html', { 'campsites': campsites })
