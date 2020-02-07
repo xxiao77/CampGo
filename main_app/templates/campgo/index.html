@@ -6,7 +6,7 @@
 {% for campsite in campsites %}
 <div class="card">
   <div class="card-image">
-    <img src="https://placekitten.com/20/30">
+    <img src="{{ campsite.img_url }}">
     <span class="card-title">{{ campsite.name }}</span>
   </div>
   <div class="card-content">
