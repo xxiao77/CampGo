@@ -2,13 +2,10 @@ from django.shortcuts import render, redirect
 from .models import Campsite
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-# from .forms import FeedingForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
-# Create your views here.
 
 def signup(request):
   error_message = ''
@@ -30,25 +27,33 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
-<<<<<<< HEAD
-# camp_index ?
+@login_required
 def index(request):
   campsites = Campsite.objects.all()
   return render(request, 'campgo/index.html', { 'campsites': campsites })
-=======
+
+class CampsiteCreate(LoginRequiredMixin, CreateView):
+  model = Campsite
+  fields = ['name', 'location', 'img_url', 'description']
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
 @login_required
-def index(request):
-  return render(request, 'campgo/index.html')
+def camp_show(request, campsite_id):
+  campsite = Campsite.objects.get(id=campsite_id)
+  return render(request, 'campgo/show.html', { 'campsite': campsite})
 
-def camp_create(request):
-  return render(request, 'campgo/new.html')
-
-def camp_edit(request):
+@login_required
+def camp_edit(request, campsite_id):
   return render(request, 'campgo/edit.html')
 
+@login_required
 def camp_delete(request):
   return render(request, 'campgo/confirm.html')
 
-def camp_show(request):
-  return render(request, 'campgo/show.html')
->>>>>>> master
+
+
+@login_required
+def fav_list(request):
+  return render(request, 'campgo/main_app/favlist.html')
