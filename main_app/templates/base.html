@@ -14,14 +14,24 @@
   <header class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
-        <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;CampGo</a></li>
-        </ul>
+        <div style="display: flexbox;">
+          <ul>
+            <li><a href="/" class="left brand-logo">&nbsp;&nbsp;CampGo</a></li>
+            {%if user.is_authenticated %}
+            <li style="margin-left: 250px;"><h5>Hello {{ user.username }}!</h5></li>
+            {% endif %}
+          </ul>
+        </div>
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
-          <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'favlist' %}">My Fav</a></li>
+            <li><a href="{% url 'camp_create' %}">Add New</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
