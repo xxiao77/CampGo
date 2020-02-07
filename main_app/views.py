@@ -30,25 +30,7 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
-<<<<<<< HEAD
 # camp_index ?
 def index(request):
   campsites = Campsite.objects.all()
   return render(request, 'campgo/index.html', { 'campsites': campsites })
-=======
-@login_required
-def index(request):
-  return render(request, 'campgo/index.html')
-
-def camp_create(request):
-  return render(request, 'campgo/new.html')
-
-def camp_edit(request):
-  return render(request, 'campgo/edit.html')
-
-def camp_delete(request):
-  return render(request, 'campgo/confirm.html')
-
-def camp_show(request):
-  return render(request, 'campgo/show.html')
->>>>>>> master
