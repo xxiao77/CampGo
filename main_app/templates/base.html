@@ -25,8 +25,9 @@
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
           {% if user.is_authenticated %}
+            <li><a href="{% url 'index' %}">See All CampSites</a></li>
             <li><a href="{% url 'favlist' %}">My Fav</a></li>
-            <li><a href="{% url 'camp_create' %}">Add New</a></li>
+            <li><a href="{% url 'camp_create' %}">Add New Campsite</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
           {% else %}
             <li><a href="{% url 'signup' %}">Sign Up</a></li>
