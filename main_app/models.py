@@ -4,11 +4,10 @@ from datetime import date
 from django.contrib.auth.models import User
 
 class Campsite(models.Model):
-  name = models.CharField(max_length=50)
-  location = models.CharField(max_length=50)
+  name = models.CharField(max_length=100)
+  location = models.CharField(max_length=1000)
   description = models.TextField()
   img_url = models.TextField()
-  # user = models.ForeignKey(User, on_delete=models.CASCADE)
   users = models.ManyToManyField(User)
 
   def __str__(self):
@@ -23,4 +22,4 @@ class Comment(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __str__(self):
-    return self.name
+    return self.content
