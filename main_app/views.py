@@ -68,11 +68,8 @@ def add_comment(request, campsite_id):
 
 @login_required
 def fav_list(request):
-<<<<<<< HEAD
   favs = Campsite.objects.filter(user=request.user)
   return render(request, 'campgo/main_app/favlist.html', { 'favs': favs })
-def camp_show(request):
-  return render(request, 'campgo/show.html')
 
 # comment views
 @login_required
@@ -99,17 +96,3 @@ class CommentUpdate(LoginRequiredMixin, UpdateView):
 class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
   success_url = '/comments/'
-=======
-  user = request.user
-  campsites = []
-  for campsite in Campsite.objects.all():
-    if user in campsite.users:
-      campsites.append(campsite)
-    else:
-      pass
-  return render(
-    request,
-    'campgo/main_app/favlist.html',
-    { 'campsites': campsites }
-  )
->>>>>>> ryan
