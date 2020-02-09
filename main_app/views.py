@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CommentForm
 
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -57,6 +58,7 @@ def camp_edit(request, campsite_id):
 def camp_delete(request):
   return render(request, 'campgo/confirm.html')
 
+@login_required
 def add_comment(request, campsite_id):
   form = CommentForm(request.POST)
   if form.is_valid():
@@ -65,6 +67,14 @@ def add_comment(request, campsite_id):
     form.instance.user = request.user
     new_comment.save()
   return redirect('camp_show', campsite_id = campsite_id)
+
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+  model = Comment
+  fields = ['content']
+
+class CommentDelete(LoginRequiredMixin, DeleteView):
+  model = Comment
+  success_url="/camp_show/{campsite_id}/"
 
 @login_required
 def fav_list(request):
