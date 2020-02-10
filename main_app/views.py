@@ -57,6 +57,7 @@ def camp_edit(request, campsite_id):
 def camp_delete(request):
   return render(request, 'campgo/confirm.html')
 
+@login_required
 def add_comment(request, campsite_id):
   form = CommentForm(request.POST)
   if form.is_valid():
@@ -65,14 +66,6 @@ def add_comment(request, campsite_id):
     form.instance.user = request.user
     new_comment.save()
   return redirect('camp_show', campsite_id = campsite_id)
-
-@login_required
-def fav_list(request):
-<<<<<<< HEAD
-  favs = Campsite.objects.filter(user=request.user)
-  return render(request, 'campgo/main_app/favlist.html', { 'favs': favs })
-def camp_show(request):
-  return render(request, 'campgo/show.html')
 
 # comment views
 @login_required
@@ -99,17 +92,19 @@ class CommentUpdate(LoginRequiredMixin, UpdateView):
 class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
   success_url = '/comments/'
-=======
+
+@login_required
+def add_fav(request, campsite_id):
   user = request.user
-  campsites = []
-  for campsite in Campsite.objects.all():
-    if user in campsite.users:
-      campsites.append(campsite)
-    else:
-      pass
+  Campsite.objects.get(id=campsite_id).users.add(user)
+  return redirect('camp_show', campsite_id=campsite_id)
+
+@login_required
+def fav_list(request, user_id):
+  user = request.user
+  campsites = user.campsite_set.all()
   return render(
     request,
     'campgo/main_app/favlist.html',
     { 'campsites': campsites }
   )
->>>>>>> ryan

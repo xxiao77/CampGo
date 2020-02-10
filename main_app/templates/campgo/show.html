@@ -4,21 +4,6 @@
 
 
 <div class="card" id="card">
-<<<<<<< HEAD
-    <div class="card-content">
-        <div class="card-image">
-            <img src="{{ campsite.img_url }}">
-            <span class="card-title">{{ campsite.name }}</span>
-        </div>
-        <p>Location: {{ campsite.location }}</p>
-        <p>Description: {{ campsite.description }}</p>
-    </div>
-    <div class="card-action">
-        <a href="{% url 'camp_edit' campsite.id %}">Edit Campsite</a>
-    </div>
-</div>
-
-=======
   <div class="card-content">
     <div class="card-image">
       <img src="{{ campsite.img_url }}">
@@ -26,6 +11,12 @@
     </div>
     <p>Location: {{ campsite.location }}</p>
     <p>Description: {{ campsite.description }}</p>
+  </div>
+  <div class="card-action">
+    <form action="{% url 'add_fav' campsite.id %}" method="POST">
+        {% csrf_token %}
+      <button type="submit" class="btn">Add Fav</button>
+    </form>
   </div>
   <div class="card-action">
     <a href="{% url 'camp_edit' campsite.id %}">Edit Campsite</a>
@@ -49,5 +40,4 @@
       </tbody>
     </table>
 </div>
->>>>>>> 001812074e0221c8c5e225def3f0ccc7073d08e9
 {% endblock %}

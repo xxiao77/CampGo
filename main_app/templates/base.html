@@ -9,6 +9,7 @@
   <title>CampGo</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
   <header class="navbar-fixed">
@@ -29,10 +30,9 @@
             <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!<i class="material-icons right">arrow_drop_down</i></a>
             <ul id='dropdown1' class='dropdown-content'>
               <li><a href="{% url 'index' %}">Home</a></li>
-              <li><a href="{% url 'favlist' %}">My Fav</a></li>
+              <li><a href="{% url 'favlist' user.id %}">My Fav</a></li>
               <li><a href="{% url 'camp_create' %}">Add New</a></li>
             </ul>
-          <!-- dropdown -->
             <li><a href="{% url 'logout' %}">Logout</a></li>
           {% else %}
             <li><a href="{% url 'signup' %}">Sign Up</a></li>
@@ -49,5 +49,11 @@
   <footer class="page-footer">
     <div class="right">&copy; 2020 CampGo &nbsp;</div>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.dropdown-trigger');
+      var instances = M.Dropdown.init(elems);
+    });
+  </script>
 </body>
 </html>
