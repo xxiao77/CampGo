@@ -33,7 +33,7 @@ def about(request):
 def index(request):
   campsites = Campsite.objects.all()
   comment_form = CommentForm
-  return render(request, 'campgo/index.html', { 'campsites': campsites, comment_form })
+  return render(request, 'campgo/index.html', { 'campsites': campsites, 'comment_form':comment_form })
 
 class CampsiteCreate(LoginRequiredMixin, CreateView):
   model = Campsite
@@ -107,6 +107,6 @@ def fav_list(request, user_id):
   campsites = user.campsite_set.all()
   return render(
     request,
-    'campgo/main_app/favlist.html',
+    'campgo/favlist.html',
     { 'campsites': campsites }
   )

@@ -4,9 +4,9 @@
 <h1>CampGo</h1>
 
 {% for campsite in campsites %}
-<div class="card">
+<div class="card camp-card">
   <div class="card-image">
-    <img src="{{ campsite.img_url }}">
+    <img class="camp-img" src="{{ campsite.img_url }}">
     <span class="card-title">{{ campsite.name }}</span>
   </div>
   <div class="card-content">

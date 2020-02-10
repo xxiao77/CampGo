@@ -16,3 +16,18 @@ footer.page-footer {
 li {
   color: white;
 }
+
+#comment {
+  border-style: none;
+
+  margin: 15px;
+}
+
+.camp-img {
+  height: 450px;
+}
+
+.camp-card {
+  width: 950px;
+  align-self: center;
+}
