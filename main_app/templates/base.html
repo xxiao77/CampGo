@@ -19,23 +19,24 @@
 </head>
 <body>
   <header class="navbar-fixed">
-    <nav>
+    <nav class="green">
       <div class="nav-wrapper">
         <div style="display: flexbox;">
-        <ul>
-          <li><a href="{% url 'index' %}" class="left brand-logo">&nbsp;&nbsp;CampGo</a></li>
-        </ul>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="{% url 'about' %}">About</a></li>
+          <ul>
+            <li><a href="{% url 'index' %}" class="left brand-logo">&nbsp;&nbsp;CampGo</a></li>
             {%if user.is_authenticated %}
-            <li><h5>Hello {{ user.username }}!</h5></li>
-            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+              <li style="margin-left: 250px;"><h5>Hello {{ user.username }}!</h5></li>
+              <ul class="right hide-on-med-and-down">
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a class="dropdown-trigger" style="padding-right: 40px;" href="#!" data-target="dropdown1"><i class="material-icons right">menu</i></a></li>
+              </ul>
             {% else %}
-              <li><a href="{% url 'signup' %}">Sign Up</a></li>
-              <li><a href="{% url 'login' %}">Login</a></li>
+              <ul class="right hide-on-med-and-down">
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+              </ul>
             {% endif %}
           </ul>
-        </ul>
         </div>
       </div>
     </nav>
@@ -49,11 +50,15 @@
       </script>   
   </header>
   <main class="container">
-    {% block content %}
-    {% endblock %}
+    <div class = "col l3">
+      {% block content %}
+      {% endblock %}
+    </div>
   </main>
+  <div class="green">
   <footer class="page-footer">
     <div class="right">&copy; 2020 CampGo &nbsp;</div>
   </footer>
+  </div>
 </body>
 </html>
