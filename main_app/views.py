@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Campsite
+from .models import Campsite, Comment
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
@@ -7,6 +7,7 @@ from .forms import CommentForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CommentForm
 
 def signup(request):
   error_message = ''
@@ -44,7 +45,11 @@ class CampsiteCreate(LoginRequiredMixin, CreateView):
 @login_required
 def camp_show(request, campsite_id):
   campsite = Campsite.objects.get(id=campsite_id)
-  return render(request, 'campgo/show.html', { 'campsite': campsite})
+  comment_form = CommentForm()
+  return render(request, 'campgo/show.html', { 
+    'campsite': campsite,
+    'comment_form': comment_form
+    })
 
 @login_required
 def camp_edit(request, campsite_id):
@@ -55,11 +60,14 @@ def camp_delete(request):
   return render(request, 'campgo/confirm.html')
 
 @login_required
-def fav_list(request):
-  favs = Campsite.objects.filter(user=request.user)
-  return render(request, 'campgo/main_app/favlist.html', { 'favs': favs })
-def camp_show(request):
-  return render(request, 'campgo/show.html')
+def add_comment(request, campsite_id):
+  form = CommentForm(request.POST)
+  if form.is_valid():
+    new_comment = form.save(commit=False)
+    new_comment.campsite_id = campsite_id
+    form.instance.user = request.user
+    new_comment.save()
+  return redirect('camp_show', campsite_id = campsite_id)
 
 # comment views
 @login_required
@@ -86,3 +94,19 @@ class CommentUpdate(LoginRequiredMixin, UpdateView):
 class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
   success_url = '/comments/'
+
+@login_required
+def add_fav(request, campsite_id):
+  user = request.user
+  Campsite.objects.get(id=campsite_id).users.add(user)
+  return redirect('camp_show', campsite_id=campsite_id)
+
+@login_required
+def fav_list(request, user_id):
+  user = request.user
+  campsites = user.campsite_set.all()
+  return render(
+    request,
+    'campgo/main_app/favlist.html',
+    { 'campsites': campsites }
+  )
