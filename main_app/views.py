@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CommentForm
 
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -68,26 +69,19 @@ def add_comment(request, campsite_id):
   return redirect('camp_show', campsite_id = campsite_id)
 
 # comment views
-@login_required
-def assoc_comments(request, campsite_id, comment_id):
-  Campsite.objects.get(id=campsite_id).comments.add(comment_id)
-  return redirect('detail', campsite_id=campsite_id)
+# @login_required
+# def assoc_comments(request, campsite_id, comment_id):
+#   Campsite.objects.get(id=campsite_id).comments.add(comment_id)
+#   return redirect('detail', campsite_id=campsite_id)
 
-@login_required
-def unassoc_comments(request, campsite_id, comment_id):
-  Campsite.objects.get(id=campsite_id).comments.remove(comment_id)
-  return redirect('detail', campsite_id=campsite_id)
-
-class CommentDetail(LoginRequiredMixin, DetailView):
-  model = Comment
-
-# class CommentCreate(LoginRequiredMixin, CreateView):
-#   model = Comment
-#   fields = '__all__'
+# @login_required
+# def unassoc_comments(request, campsite_id, comment_id):
+#   Campsite.objects.get(id=campsite_id).comments.remove(comment_id)
+#   return redirect('detail', campsite_id=campsite_id)
 
 class CommentUpdate(LoginRequiredMixin, UpdateView):
   model = Comment
-  fields = []
+  fields = ['content']
 
 class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
@@ -95,9 +89,7 @@ class CommentDelete(LoginRequiredMixin, DeleteView):
 
 @login_required
 def add_fav(request, campsite_id):
-  user = request.user
-  Campsite.objects.get(id=campsite_id).users.add(user)
-  return redirect('camp_show', campsite_id=campsite_id)
+  success_url="/camp_show/{campsite_id}/"
 
 @login_required
 def fav_list(request, user_id):
