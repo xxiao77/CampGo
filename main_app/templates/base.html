@@ -27,6 +27,7 @@
             {%if user.is_authenticated %}
               <li style="margin-left: 250px;"><h5>Hello {{ user.username }}!</h5></li>
               <ul class="right hide-on-med-and-down">
+                <li><a href="sass.html"><i class="material-icons left">search</i></a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a class="dropdown-trigger" style="padding-right: 40px;" href="#!" data-target="dropdown1"><i class="material-icons right">menu</i></a></li>
               </ul>
