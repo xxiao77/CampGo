@@ -13,9 +13,6 @@ urlpatterns = [
   path('camp_show/<int:campsite_id>/add_fav/', views.add_fav, name='add_fav'),
   path('favlist/<int:user_id>/', views.fav_list, name='favlist'),
   path('campgo/<int:campsite_id>/add_comment/', views.add_comment, name='add_comment'),
-  path('campgo/<int:campsite_id>/assoc_comments/<int:comment_id>/', views.assoc_comments, name='assoc_comments'),
-  path('campgo/<int:campsite_id>/unassoc_comments/<int:comment_id>/', views.unassoc_comments, name='unassoc_comments'),
-  path('comments/<int:pk>/', views.CommentDetail.as_view(), name='comment_detail'),
-  path('comments/<int:pk>/update/', views.CommentUpdate.as_view(), name='comment_update'),
+  path('comments/<int:pk>/', views.CommentUpdate.as_view(), name='comment_update'),
   path('comments/<int:pk>/delete/', views.CommentDelete.as_view(), name='comment_delete'),
 ]

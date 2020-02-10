@@ -4,11 +4,9 @@
 
 <h1>Add New Campsite</h1>
 
-<form action="" method="post">
-    <!-- Django requires the following for security purposes -->
+<form action="" method="POST">
     {% csrf_token %}
     <table>
-        <!-- Render the inputs inside of <tr>s & <td>s -->
         {{ form.as_table }}
     </table>
     <input type="submit" value="Add Campsite!" class="btn">

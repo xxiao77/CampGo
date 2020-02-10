@@ -16,6 +16,7 @@ footer.page-footer {
 li {
   color: white;
 }
+<<<<<<< HEAD
 
 #comment {
   border-style: none;
@@ -31,3 +32,10 @@ li {
   width: 950px;
   align-self: center;
 }
+=======
+/* 
+.container {
+  display: inline-flex;
+  flex-wrap: wrap; */
+/* } */
+>>>>>>> master

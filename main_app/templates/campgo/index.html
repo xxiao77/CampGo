@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>CampGo</h1>
-
-{% for campsite in campsites %}
-<div class="card camp-card">
-  <div class="card-image">
-    <img class="camp-img" src="{{ campsite.img_url }}">
-    <span class="card-title">{{ campsite.name }}</span>
-  </div>
-  <div class="card-content">
-    <p>{{ campsite.location }}</p>
-    <p>{{ campsite.description }}</p>
-  </div>
-  <div class="card-action">
-    <a href="{% url 'camp_show' campsite.id %}">Visit</a>
-  </div>
+<br>
+<div class="row">
+  {% for campsite in campsites %}
+    <div class="col s4">
+      <div class="card medium">
+        <div class="card-image">
+          <img src="{{ campsite.img_url }}">
+          <span class="card-title">{{ campsite.name }}</span>
+        </div>
+        <div class="card-content">
+          <h6>{{ campsite.location }}</h6>
+        </div>
+        <div class="card-action">
+          <a class="card-action" href="{% url 'camp_show' campsite.id %}">Visit</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
 </div>
-{% endfor %}
+
 
 {% endblock %}
