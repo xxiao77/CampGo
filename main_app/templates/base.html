@@ -7,15 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>CampGo</title>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
   <header class="navbar-fixed">
-    <nav>
+    <nav class="green">
       <div class="nav-wrapper">
         <div style="display: flexbox;">
+<<<<<<< HEAD
         <ul>
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;CampGo</a></li>
           {%if user.is_authenticated %}
@@ -39,21 +47,55 @@
             <li><a href="{% url 'login' %}">Login</a></li>
           {% endif %}
         </ul>
+=======
+          <ul>
+            <li><a href="{% url 'index' %}" class="left brand-logo">&nbsp;&nbsp;CampGo</a></li>
+            {%if user.is_authenticated %}
+              <li style="margin-left: 250px;"><h5>Hello {{ user.username }}!</h5></li>
+              <ul class="right hide-on-med-and-down">
+                <li><a href="sass.html"><i class="material-icons left">search</i></a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a class="dropdown-trigger" style="padding-right: 40px;" href="#!" data-target="dropdown1"><i class="material-icons right">menu</i></a></li>
+              </ul>
+            {% else %}
+              <ul class="right hide-on-med-and-down">
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+              </ul>
+            {% endif %}
+          </ul>
+        </div>
+>>>>>>> 012e364db8d4290fe885c85879f6f5ae39efee83
       </div>
     </nav>
+    <ul id='dropdown1' class='dropdown-content'> 
+      <li><a href="{% url 'favlist' %}">My Fav</a></li>
+      <li><a href="{% url 'camp_create' %}">Add New</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+      <script>
+          $(".dropdown-trigger").dropdown();
+      </script>   
   </header>
   <main class="container">
-    {% block content %}
-    {% endblock %}
+    <div class = "col l3">
+      {% block content %}
+      {% endblock %}
+    </div>
   </main>
+  <div class="green">
   <footer class="page-footer">
     <div class="right">&copy; 2020 CampGo &nbsp;</div>
   </footer>
+<<<<<<< HEAD
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var elems = document.querySelectorAll('.dropdown-trigger');
       var instances = M.Dropdown.init(elems);
     });
   </script>
+=======
+  </div>
+>>>>>>> 012e364db8d4290fe885c85879f6f5ae39efee83
 </body>
 </html>
