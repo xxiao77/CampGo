@@ -91,21 +91,11 @@ class CommentDelete(LoginRequiredMixin, DeleteView):
 
 @login_required
 def add_fav(request, campsite_id):
-<<<<<<< HEAD
-  user = request.user
-  Campsite.objects.get(id=campsite_id).users.add(user)
-  return redirect('camp_show', campsite_id=campsite_id)
-
-@login_required
-def fav_list(request, user_id):
-  user = request.user
-=======
   success_url="/camp_show/{campsite_id}/"
 
 @login_required
 def fav_list(request, user_id):
   user = request.user
->>>>>>> 012e364db8d4290fe885c85879f6f5ae39efee83
   campsites = user.campsite_set.all()
   return render(
     request,

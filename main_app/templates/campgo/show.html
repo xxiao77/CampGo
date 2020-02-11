@@ -17,15 +17,6 @@
       <button type="submit" class="btn">Add Fav</button>
     </form>
   </div>
-  <div class="card-action">
-    <form action="{% url 'add_fav' campsite.id %}" method="POST">
-        {% csrf_token %}
-      <button type="submit" class="btn">Add Fav</button>
-    </form>
-  </div>
-  <div class="card-action">
-    <a href="{% url 'camp_edit' campsite.id %}">Edit Campsite</a>
-  </div>
   {% if user.id %}
     <div class="card-action">
       <a href="{% url 'camp_edit' campsite.id %}">Edit Campsite</a>
