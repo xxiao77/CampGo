@@ -36,7 +36,7 @@ def index(request):
 
 class CampsiteCreate(LoginRequiredMixin, CreateView):
   model = Campsite
-  fields = ['name', 'location', 'img_url', 'description']
+  fields = '__all__'
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
@@ -50,13 +50,14 @@ def camp_show(request, campsite_id):
     'comment_form': comment_form
     })
 
-@login_required
-def camp_edit(request, campsite_id):
-  return render(request, 'campgo/edit.html')
+class CampsiteUpdate(LoginRequiredMixin, UpdateView):
+  model = Campsite
+  fields = '__all__'
+  success_url = '/camp_show/{campsite_id}/'
 
-@login_required
-def camp_delete(request):
-  return render(request, 'campgo/confirm.html')
+# @login_required
+# def camp_delete(request):
+#   return render(request, 'campgo/confirm.html')
 
 @login_required
 def add_comment(request, campsite_id):
@@ -85,11 +86,13 @@ class CommentUpdate(LoginRequiredMixin, UpdateView):
 
 class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
-  success_url = '/comments/'
+  success_url = '/camp_show/{campsite_id}/'
 
 @login_required
 def add_fav(request, campsite_id):
-  success_url="/camp_show/{campsite_id}/"
+  user = request.user
+  Campsite.objects.get(id=campsite_id).owner.add(user)
+  return redirect('camp_show', campsite_id=campsite_id)
 
 @login_required
 def fav_list(request, user_id):

@@ -2,15 +2,17 @@
 
 {% block content %}
 
-<h1>Add New Campsite</h1>
-
-<form action="" method="POST">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="Add Campsite!" class="btn">
-</form>
-
+{% if object %}
+    <h1>Edit Campsite</h1>
+{% else %}
+    <h1>Add New Campsite</h1>
+{% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit" class="btn">
+    </form>
 
 {% endblock %}
