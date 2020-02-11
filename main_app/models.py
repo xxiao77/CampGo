@@ -8,6 +8,7 @@ class Campsite(models.Model):
   location = models.CharField(max_length=1000)
   description = models.TextField()
   img_url = models.TextField()
+  owner = models.CharField(max_length=50)
   users = models.ManyToManyField(User)
 
   def __str__(self):
