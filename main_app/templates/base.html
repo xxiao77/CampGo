@@ -68,11 +68,13 @@
 >>>>>>> 012e364db8d4290fe885c85879f6f5ae39efee83
       </div>
     </nav>
-    <ul id='dropdown1' class='dropdown-content'>
+    <ul id='dropdown1' class='dropdown-content'> 
       {%if user.is_authenticated %}
+        <li><a href="{% url 'index' %}">See All</a></li>
         <li><a href="{% url 'favlist' user.id %}">My Fav</a></li>
       {% endif %}
       <li><a href="{% url 'camp_create' %}">Add New</a></li>
+      <li><a href="{% url 'search_new' %}">Search</a></li>
       <li><a href="{% url 'logout' %}">Logout</a></li>
     </ul>
       <script>
