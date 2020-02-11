@@ -3,6 +3,7 @@ from .models import Campsite, Comment
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
+from .forms import CommentForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -32,7 +33,8 @@ def about(request):
 @login_required
 def index(request):
   campsites = Campsite.objects.all()
-  return render(request, 'campgo/index.html', { 'campsites': campsites })
+  comment_form = CommentForm
+  return render(request, 'campgo/index.html', { 'campsites': campsites, 'comment_form':comment_form })
 
 class CampsiteCreate(LoginRequiredMixin, CreateView):
   model = Campsite
@@ -88,6 +90,21 @@ class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
   success_url="/camp_show/{campsite_id}/"
 
+@login_required
+def add_fav(request, campsite_id):
+  user = request.user
+  Campsite.objects.get(id=campsite_id).users.add(user)
+  return redirect('camp_show', campsite_id=campsite_id)
+
+@login_required
+def fav_list(request):
+  user = request.user
+  campsites = user.campsite_set.all()
+  return render(
+    request,
+    'main_app/favlist.html',
+    { 'campsites': campsites }
+  )
 # @login_required
 # def add_fav(request, campsite_id):
 #   user = request.user
@@ -110,17 +127,18 @@ class CommentDelete(LoginRequiredMixin, DeleteView):
 
 @login_required
 def fav_list(request, user_id):
-  return render(request, 'campgo/favlist.html')
+  campsites = Campsite.objects.filter(favlist=request.user.id)
+  return render(request, 'campgo/favlist.html', {"campsites": campsites})
 
 @login_required
-def assoc_favlist(request, user_id, campsite_id):
-  Campsite.objects.get(id=campsite_id).favlist.add(user_id)
-  return redirect('favlist', user_id=user_id)
+def assoc_favlist(request, campsite_id):
+  Campsite.objects.get(id=campsite_id).favlist.add(request.user.id)
+  return redirect('favlist', request.user.id)
 
 @login_required
-def unassoc_favlist(request, user_id, campsite_id):
-  Campsite.objects.get(id=campsite_id).favlist.remove(user_id)
-  return redirect('favlist', user_id=user_id)
+def unassoc_favlist(request, campsite_id):
+  Campsite.objects.get(id=campsite_id).favlist.remove(request.user.id)
+  return redirect('favlist', request.user.id)
 
 @login_required
 def search_new(request):

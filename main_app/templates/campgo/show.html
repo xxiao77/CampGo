@@ -2,7 +2,6 @@
 
 {% block content%}
 
-
 <div class="card" id="card">
   <div class="card-content">
     <div class="card-image">
@@ -12,16 +11,13 @@
     <h5>{{ campsite.location }}</h5><br>
     <p>{{ campsite.description }}</p>
   </div>
-  <!-- this part not working -->
   <div class="card-action">
-    <form action="{% url 'assoc_favlist' favlist.id %}" method="POST">
+    <form action="{% url 'assoc_favlist' campsite.id %}" method="POST">
         {% csrf_token %}
       <button type="submit" class="btn">Add Fav</button>
     </form>
   </div>
-  <!-- this part not working -->
-  {% if user.id %}
-<!--   {% if campsite.owner == user.username %} -->
+  {% if campsite.owner == user.username %}
     <div class="card-action">
       <a href="{% url 'camp_update' campsite.id %}">Edit Campsite</a>
     </div>
@@ -51,4 +47,5 @@
       </tbody>
     </table>
 </div>
+
 {% endblock %}
