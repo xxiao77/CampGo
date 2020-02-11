@@ -8,7 +8,8 @@ class Campsite(models.Model):
   location = models.CharField(max_length=1000)
   description = models.TextField()
   img_url = models.TextField()
-  users = models.ManyToManyField(User)
+  owner = models.ForeignKey(User, on_delete=models.CASCADE)
+  favlist = models.ManyToManyField(User, related_name="favoritor")
 
   def __str__(self):
     return self.name

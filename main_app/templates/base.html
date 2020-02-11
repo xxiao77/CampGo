@@ -43,13 +43,17 @@
       </div>
     </nav>
     <ul id='dropdown1' class='dropdown-content'> 
-      <li><a href="{% url 'favlist' user.id %}">My Fav</a></li>
+      {%if user.is_authenticated %}
+        <li><a href="{% url 'index' %}">See All</a></li>
+        <li><a href="{% url 'favlist' user.id %}">My Fav</a></li>
+      {% endif %}
       <li><a href="{% url 'camp_create' %}">Add New</a></li>
+      <li><a href="{% url 'search_new' %}">Search</a></li>
       <li><a href="{% url 'logout' %}">Logout</a></li>
     </ul>
       <script>
           $(".dropdown-trigger").dropdown();
-      </script>   
+      </script>
   </header>
   <main class="container">
     <div class = "col l3">

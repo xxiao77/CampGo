@@ -40,7 +40,7 @@ class CampsiteCreate(LoginRequiredMixin, CreateView):
   model = Campsite
   fields = ['name', 'location', 'img_url', 'description']
   def form_valid(self, form):
-    form.instance.user = self.request.user
+    form.instance.owner = self.request.user
     return super().form_valid(form)
 
 @login_required
@@ -52,9 +52,10 @@ def camp_show(request, campsite_id):
     'comment_form': comment_form
     })
 
-@login_required
-def camp_edit(request, campsite_id):
-  return render(request, 'campgo/edit.html')
+class CampsiteUpdate(LoginRequiredMixin, UpdateView):
+  model = Campsite
+  fields = ['name', 'location', 'img_url', 'description']
+  success_url="/camp_show/{campsite_id}/"
 
 @login_required
 def camp_delete(request):
@@ -79,7 +80,7 @@ def add_comment(request, campsite_id):
 # @login_required
 # def unassoc_comments(request, campsite_id, comment_id):
 #   Campsite.objects.get(id=campsite_id).comments.remove(comment_id)
-#   return redirect('detail', campsite_id=campsite_id)
+#    return redirect('detail', campsite_id=campsite_id)
 
 class CommentUpdate(LoginRequiredMixin, UpdateView):
   model = Comment
@@ -87,18 +88,66 @@ class CommentUpdate(LoginRequiredMixin, UpdateView):
 
 class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
-  success_url = '/comments/'
-
-@login_required
-def add_fav(request, campsite_id):
   success_url="/camp_show/{campsite_id}/"
 
 @login_required
-def fav_list(request, user_id):
+def add_fav(request, campsite_id):
+  user = request.user
+  Campsite.objects.get(id=campsite_id).users.add(user)
+  return redirect('camp_show', campsite_id=campsite_id)
+
+@login_required
+def fav_list(request):
   user = request.user
   campsites = user.campsite_set.all()
   return render(
     request,
-    'campgo/favlist.html',
+    'main_app/favlist.html',
     { 'campsites': campsites }
   )
+# @login_required
+# def add_fav(request, campsite_id):
+#   user = request.user
+#   campsite = Campsite.objects.get(id=campsite_id)
+#   user.campsite_set.add(campsite)
+
+# @login_required
+# def add_fav(request, campsite_id):
+#   success_url="/camp_show/{campsite_id}/"
+
+# @login_required
+# def fav_list(request, user_id):
+#   user = request.user
+#   campsites = user.campsite_set.all()
+#   return render(
+#     request,
+#     'campgo/main_app/favlist.html',
+#     { 'campsites': campsites }
+#   )
+
+@login_required
+def fav_list(request, user_id):
+  campsites = Campsite.objects.filter(favlist=request.user.id)
+  return render(request, 'campgo/favlist.html', {"campsites": campsites})
+
+@login_required
+def assoc_favlist(request, campsite_id):
+  Campsite.objects.get(id=campsite_id).favlist.add(request.user.id)
+  return redirect('favlist', request.user.id)
+
+@login_required
+def unassoc_favlist(request, campsite_id):
+  Campsite.objects.get(id=campsite_id).favlist.remove(request.user.id)
+  return redirect('favlist', request.user.id)
+
+@login_required
+def search_new(request):
+  return render(request, 'campgo/search_new.html')
+
+#   user = request.user
+#   campsites = user.campsite_set.all()
+#   return render(
+#     request,
+#     'main_app/favlist.html',
+#     { 'campsites': campsites }
+#   )
