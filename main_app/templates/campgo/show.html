@@ -9,21 +9,20 @@
       <img src="{{ campsite.img_url }}">
       <span class="card-title">{{ campsite.name }}</span>
     </div>
-    <h5>Location: {{ campsite.location }}}</h5><br>
-    <p>Description: {{ campsite.description }</p>
+    <h5>{{ campsite.location }}</h5><br>
+    <p>{{ campsite.description }}</p>
   </div>
+  <!-- this part not working -->
   <div class="card-action">
-    <form action="{% url 'add_fav' campsite.id %}" method="POST">
+    <form action="{% url 'assoc_favlist' favlist.id %}" method="POST">
         {% csrf_token %}
       <button type="submit" class="btn">Add Fav</button>
     </form>
   </div>
-  <div class="card-action">
-    <a href="{% url 'camp_edit' campsite.id %}">Edit Campsite</a>
-  </div>
+  <!-- this part not working -->
   {% if user.id %}
     <div class="card-action">
-      <a href="{% url 'camp_edit' campsite.id %}">Edit Campsite</a>
+      <a href="{% url 'camp_update' campsite.id %}">Edit Campsite</a>
     </div>
   {% endif %}
     <form action="{% url 'add_comment' campsite.id  %}" method="POST">
