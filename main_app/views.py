@@ -69,6 +69,17 @@ def add_comment(request, campsite_id):
     new_comment.save()
   return redirect('camp_show', campsite_id = campsite_id)
 
+# comment views
+# @login_required
+# def assoc_comments(request, campsite_id, comment_id):
+#   Campsite.objects.get(id=campsite_id).comments.add(comment_id)
+#   return redirect('detail', campsite_id=campsite_id)
+
+# @login_required
+# def unassoc_comments(request, campsite_id, comment_id):
+#   Campsite.objects.get(id=campsite_id).comments.remove(comment_id)
+#    return redirect('detail', campsite_id=campsite_id)
+
 class CommentUpdate(LoginRequiredMixin, UpdateView):
   model = Comment
   fields = ['content']
@@ -76,6 +87,12 @@ class CommentUpdate(LoginRequiredMixin, UpdateView):
 class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
   success_url="/camp_show/{campsite_id}/"
+
+# @login_required
+# def add_fav(request, campsite_id):
+#   user = request.user
+#   campsite = Campsite.objects.get(id=campsite_id)
+#   user.campsite_set.add(campsite)
 
 # @login_required
 # def add_fav(request, campsite_id):
@@ -108,3 +125,11 @@ def unassoc_favlist(request, user_id, campsite_id):
 @login_required
 def search_new(request):
   return render(request, 'campgo/search_new.html')
+
+#   user = request.user
+#   campsites = user.campsite_set.all()
+#   return render(
+#     request,
+#     'main_app/favlist.html',
+#     { 'campsites': campsites }
+#   )

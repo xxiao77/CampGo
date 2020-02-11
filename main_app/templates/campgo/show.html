@@ -21,6 +21,7 @@
   </div>
   <!-- this part not working -->
   {% if user.id %}
+<!--   {% if campsite.owner == user.username %} -->
     <div class="card-action">
       <a href="{% url 'camp_update' campsite.id %}">Edit Campsite</a>
     </div>
