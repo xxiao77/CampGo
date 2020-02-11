@@ -42,7 +42,7 @@
         </div>
       </div>
     </nav>
-    <ul id='dropdown1' class='dropdown-content'> 
+    <ul id='dropdown1' class='dropdown-content'>
       {%if user.is_authenticated %}
         <li><a href="{% url 'favlist' user.id %}">My Fav</a></li>
       {% endif %}
@@ -51,7 +51,7 @@
     </ul>
       <script>
           $(".dropdown-trigger").dropdown();
-      </script>   
+      </script>
   </header>
   <main class="container">
     <div class = "col l3">
