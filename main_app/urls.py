@@ -7,12 +7,13 @@ urlpatterns = [
   path('campgo/', views.index, name='index'),
   path('about/', views.about, name='about'),
   path('camp_create/', views.CampsiteCreate.as_view(), name='camp_create'),
-  path('camp_edit/<int:campsite_id>/', views.camp_edit, name='camp_edit'),
-  path('camp_delete/', views.camp_delete, name='camp_delete'),
+  path('camp_update/<int:pk>/', views.CampsiteUpdate.as_view(), name='camp_update'),
   path('camp_show/<int:campsite_id>/', views.camp_show, name='camp_show'),
-  path('camp_show/<int:campsite_id>/add_fav/', views.add_fav, name='add_fav'),
+  path('campgo/<int:campsite_id>/assoc_favlist/', views.assoc_favlist, name='assoc_favlist'),
+  path('campgo/<int:campsite_id>/unassoc_favlist/', views.unassoc_favlist, name='unassoc_favlist'),
   path('favlist/<int:user_id>/', views.fav_list, name='favlist'),
   path('campgo/<int:campsite_id>/add_comment/', views.add_comment, name='add_comment'),
   path('comments/<int:pk>/', views.CommentUpdate.as_view(), name='comment_update'),
   path('comments/<int:pk>/delete/', views.CommentDelete.as_view(), name='comment_delete'),
+  path('campgo/search/', views.search_new, name='search_new')
 ]

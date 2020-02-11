@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>FAV LIST PAGE</h1>
+
+{% for campsite in campsites %}
+<div class="card">
+  <span class="card-title">{{ campsite.name }}</span>
+  <div class="card-content">
+    <p>{{ campsite.location }}</p>
+    <p>{{ campsite.description }}</p>
+  </div>
+  <div class="card-action">
+    <a href="{% url 'camp_show' campsite.id %}">Visit</a>
+  </div>
+<form action="{% url 'unassoc_favlist' campsite.id %}">
+  <input type="submit" name="submit" value="Remove from Favorite">
+</form>
+</div>
+{% endfor %}
+{% endblock %}
