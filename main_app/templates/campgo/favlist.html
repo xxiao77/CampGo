@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h1>FAV LIST PAGE</h1>
 
@@ -14,9 +12,10 @@
   <div class="card-action">
     <a href="{% url 'camp_show' campsite.id %}">Visit</a>
   </div>
-<form action="{% url 'unassoc_favlist' campsite.id %}">
-  <input type="submit" name="submit" value="Remove from Favorite">
-</form>
+  <form action="{% url 'unassoc_favlist' campsite.id %}">
+    <button type="submit" name="submit" class="waves-effect waves-light btn">
+      Remove from Favorite
+    </button>
+  </form>
 </div>
-{% endfor %}
-{% endblock %}
+{% endfor %} {% endblock %}
