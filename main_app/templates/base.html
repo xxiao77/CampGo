@@ -2,69 +2,89 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>CampGo</title>
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-  crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>CampGo</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
-<body>
-  <header class="navbar-fixed">
-    <nav class="green">
-      <div class="nav-wrapper">
-        <div style="display: flexbox;">
-          <ul>
-            <li><a href="{% url 'index' %}" class="left brand-logo">&nbsp;&nbsp;CampGo</a></li>
-            {%if user.is_authenticated %}
-              <li style="margin-left: 250px;"><h5>Hello {{ user.username }}!</h5></li>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <header class="navbar-fixed">
+      <nav class="green">
+        <div class="nav-wrapper">
+          <div style="display: flexbox;">
+            <ul>
+              <li>
+                <a href="{% url 'index' %}" class="left brand-logo"
+                  >&nbsp;&nbsp;CampGo</a
+                >
+              </li>
+              {%if user.is_authenticated %}
+              <li style="margin-left: 250px;">
+                <h5>Hello {{ user.username }}!</h5>
+              </li>
               <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html"><i class="material-icons left">search</i></a></li>
+                <!-- <li><a href="sass.html"><i class="material-icons left">search</i></a></li> -->
                 <li><a href="{% url 'about' %}">About</a></li>
-                <li><a class="dropdown-trigger" style="padding-right: 40px;" href="#!" data-target="dropdown1"><i class="material-icons right">menu</i></a></li>
+                <li>
+                  <a
+                    class="dropdown-trigger"
+                    style="padding-right: 40px;"
+                    href="#!"
+                    data-target="dropdown1"
+                    ><i class="material-icons right">menu</i></a
+                  >
+                </li>
               </ul>
-            {% else %}
+              {% else %}
               <ul class="right hide-on-med-and-down">
                 <li><a href="{% url 'signup' %}">Sign Up</a></li>
                 <li><a href="{% url 'login' %}">Login</a></li>
               </ul>
-            {% endif %}
-          </ul>
+              {% endif %}
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-    <ul id='dropdown1' class='dropdown-content'> 
-      {%if user.is_authenticated %}
+      </nav>
+      <ul id="dropdown1" class="dropdown-content">
+        {%if user.is_authenticated %}
         <li><a href="{% url 'index' %}">See All</a></li>
         <li><a href="{% url 'favlist' user.id %}">My Fav</a></li>
-      {% endif %}
-      <li><a href="{% url 'camp_create' %}">Add New</a></li>
-      <li><a href="{% url 'search_new' %}">Search</a></li>
-      <li><a href="{% url 'logout' %}">Logout</a></li>
-    </ul>
+        {% endif %}
+        <li><a href="{% url 'camp_create' %}">Add New</a></li>
+        <li><a href="{% url 'search_new' %}">Search</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      </ul>
       <script>
-          $(".dropdown-trigger").dropdown();
+        $(".dropdown-trigger").dropdown();
       </script>
-  </header>
-  <main class="container">
-    <div class = "col l3">
-      {% block content %}
-      {% endblock %}
+    </header>
+    <main class="container">
+      <div class="col l3">
+        {% block content %} {% endblock %}
+      </div>
+    </main>
+    <div class="green">
+      <footer class="page-footer">
+        <div class="right">&copy; 2020 CampGo &nbsp;</div>
+      </footer>
     </div>
-  </main>
-  <div class="green">
-  <footer class="page-footer">
-    <div class="right">&copy; 2020 CampGo &nbsp;</div>
-  </footer>
-  </div>
-</body>
+  </body>
 </html>
